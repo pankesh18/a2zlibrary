@@ -1,0 +1,128 @@
+{% extends "../base.html" %}
+{% block content %}
+
+
+<div class="my-5 mx-2" style="text-align: center;">
+    <h1>Request a book </h1>
+    
+    </div>
+
+
+    <div class="input-group rounded">
+        <input type="search" id="bk_searchinput" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+        <span class="input-group-text border-0" id="search-addon">
+            <i class="bi bi-search" onclick="getbook()"></i>
+        </span>
+      </div>
+
+    <div id="result_section">
+
+    </div>
+
+
+
+      <script>
+        books=[];
+        function reqbook(index){
+            var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
+
+            function csrfSafeMethod(method) {
+                return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+            }
+
+            $.ajaxSetup({
+                beforeSend: function (xhr, settings) {
+                    if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                        xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                    }
+                }
+            });
+            $.ajax({  
+                    type: "POST",
+                    url: "/req/addreqbook",
+                    data: {'book': books[index]},
+                    success: function(response) {
+                        
+                        alert('success')
+                    }
+            })
+            }
+
+
+
+
+
+
+
+          function getbook(){
+              
+              var query= document.getElementById('bk_searchinput').value
+              fetch("https://www.googleapis.com/books/v1/volumes?q="+query)
+              .then(res=> res.json())
+              .then(response =>{
+
+                const languageNames = new Intl.DisplayNames(['en'], {
+                    type: 'language'
+                    });
+                  
+                var data =response.items;
+
+                document.getElementById('result_section').innerHTML=`<div class="container py-2 my-5" style="border-style: inset; border-radius: 0%; border-top: 0; border-bottom: 0; float: left; " id="result_container">    
+                                                                    </div>`
+                
+                var htmldata =""
+                for(var i=0; i<data.length; i++){
+                    var book={
+                       "BookTitle": data[i].volumeInfo.title!==undefined? data[i].volumeInfo.title : 'N/A',
+                       "Author" :    data[i].volumeInfo.authors[0]!==undefined? data[i].volumeInfo.authors[0] : 'N/A',
+                       "ImageURL": data[i].volumeInfo.imageLinks.thumbnail!==undefined? data[i].volumeInfo.imageLinks.thumbnail : null,
+                        "Year":    data[i].volumeInfo.publishedDate!==undefined? (new Date(data[i].volumeInfo.publishedDate)).getFullYear() : 'N/A',
+                        "Language" : data[i].volumeInfo.language!== undefined ? languageNames.of(data[i].volumeInfo.language): 'N/A',
+                        "Description": data[i].volumeInfo.description!== undefined ? data[i].volumeInfo.description: 'N/A',
+                        "Publisher": data[i].volumeInfo.publisher!== undefined ? data[i].volumeInfo.publisher: 'N/A',
+                        "ISBN": data[i].volumeInfo.industryIdentifiers!== undefined ? data[i].volumeInfo.industryIdentifiers.pop().identifier: 'N/A',    
+
+                    }
+                    console.log(book)
+                    books.push(book)
+
+                    htmldata+=`<div class="row" style="background-color: #a9a9a91f;  padding: 10px; border-radius:10%; margin: 5px;"">
+                                <div class="col-lg-4 my-2" >
+                                    <div class="col" style="text-align: center;">  <img src='${book["ImageURL"]}' width="200" height="300" >    </div>
+                                    <div class="col my-5" style="text-align: center; ">
+                                        {% csrf_token %}
+                                        <button type="button" class="btn btn-sm btn-secondary" onclick="reqbook(${i})">   
+                                    Request book
+                                    </button>
+                                    </div>
+                                </div>
+                                <div class="col-lg-8 my-2" >
+                                    <div >
+                                        <h3>  ${book["BookTitle"]}    </h3>
+                                        <div class="display-5 muted">    ${book["Author"]}   </div>
+                                        <div  style="background-color: #a9a9a91f;">
+
+    
+                                        <span>    <h6>Year :</h6>           ${book["Year"]}       </span>
+                                        <span>    <h6>Language :</h6>       ${book["Language"]}    </span>
+                                        <span >    <h6>Description :</h6>  <div style="height:100px;text-overflow: ellipsis; overflow: hidden;">   ${book["Description"]} </div> </span>
+                                        <span>    <h6>Publisher :</h6>      ${book["Publisher"]}    </span>     
+                                        <span>    <h6>ISBN :</h6>           ${book["ISBN"]}       </span>
+
+
+                                        </div>
+                                        </div>
+
+                                </div>
+                            </div>`
+
+
+                }
+                document.getElementById('result_container').innerHTML=htmldata
+
+
+            
+              })
+          }
+      </script>
+{% endblock content %}    

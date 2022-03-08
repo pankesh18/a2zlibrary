@@ -1,0 +1,107 @@
+{% extends "../base.html" %}
+{% block content %}
+
+<div class="my-5 mx-2" style="text-align: center;">
+<h1>My Books</h1>
+
+</div>
+
+{% if mybooks %}
+
+
+
+<div class="container py-2 my-5" style="border-style: inset; border-radius: 0%; border-top: 0; border-bottom: 0; float: left;">
+
+  {% for mbk in mybooks %}  
+    <div class="col" style="padding: 10px;  margin: 5px; border-style: groove;  border-left: 0; border-right: 0; border-top: 0;">
+        <div class="row" style="background-color: #a9a9a91f;">
+            <div class="col-3 my-2" style="text-align: center;"><img src="{{ mbk.book.Image.url }}" width="100" height="150" ></div>
+            <div class="col-7 my-2 py-4" style="text-align: left;">
+                <div >
+                    <h3>  {{ mbk.book.BookTitle  }}    </h3>
+                    <div class="display-5 muted">    {{ mbk.book.Author }}    </div>
+                    <div class="display-5 muted">    {{ mbk.IssuedDate }}    </div>
+                </div>
+
+            </div>
+            <div class="col-2">
+                <form action="" method="POST">
+                    {% csrf_token %}
+                <button type="button" class="btn btn-sm btn-secondary" style="position: absolute; top:45%" onclick="returnBook('{{mbk.book.id}}')">
+                    Return Book
+                  </button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+    {% endfor %}
+</div>
+
+
+
+
+
+
+
+<button id="btn-ReturnSuccessModal" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ReturnSuccessModal" style="display: none;" >
+    IssueSuccessModal
+  </button>
+  <div class="modal fade" id="ReturnSuccessModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="ReturnSuccessModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="ReturnSuccessModalLabel">Book returned successfully</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Your Book has been submitted for return. Our pickup executive will collect it!
+        </div>
+        <div class="modal-footer">
+          <a type="button" class="btn btn-secondary" href="{% url 'home' %}" >OK</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% else %}
+
+  <div class="container py-2 my-5" >
+    <div class="row px-5">
+       <span> You dont have any book with you yet. you can issue a book &nbsp;</span><a href="{% url 'home' %}"> here</a> 
+    </div>
+    </div>
+
+    {% endif %}
+
+
+<script>
+
+    function returnBook(bookId){
+      var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
+
+    function csrfSafeMethod(method) {
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+
+    $.ajaxSetup({
+        beforeSend: function (xhr, settings) {
+            if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            }
+        }
+    });
+      $.ajax({  
+            type: "POST",
+            url: "/lib/returnBook",
+            data: {'id':bookId},
+            success: function() {
+                $('#btn-ReturnSuccessModal').click()
+            }
+      })
+    }
+  
+  </script>
+
+{% endblock content %}    

@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <!-- <link rel="stylesheet" type="text/css" href="{{STATIC_URL}} ./stylesheet.css/" /> -->
+
+    <!-- <link rel="stylesheet" type="text/css" href="./stylesheet.css/"> -->
+
+
+    <title>Library System</title>
+  </head>
+  <body>
+    <header class="site-header">  
+        <!-- <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
+          <div class="container">
+            <a class="navbar-brand mr-4" href="/">Django Blog</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarToggle">
+              <div class="navbar-nav mr-auto">
+                <a class="nav-item nav-link" href="/">Home</a>
+                <a class="nav-item nav-link" href="/about">About</a>
+              </div>
+              <div class="navbar-nav">
+                <a class="nav-item nav-link" href="#">Login</a>
+                <a class="nav-item nav-link" href="#">Register</a>
+              </div>
+            </div>
+          </div>
+        </nav> -->
+
+
+
+
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <a class="navbar-brand" href="{% url 'home' %}">A2Z Library</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="nav navbar-nav">
+              <li class="nav-item active">
+                <a data-toggle="tab" class="nav-link" href="{% url 'home' %}">All Books <span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item" >
+                <a data-toggle="tab" class="nav-link" href="{% url 'mybooks' %}">My Books</a>
+              </li>
+              <li class="nav-item">
+                <a data-toggle="tab" class="nav-link" href="{% url 'requestbook' %}">Request Book</a>
+              </li>
+            </ul>
+          </div>
+          <div class="navbar-nav">
+
+            {% if user.is_authenticated %}
+            <a class="nav-item nav-link" href="{% url 'user-profile' %}">Profile</a>
+            <a class="nav-item nav-link" href="{% url 'logout' %}" >Logout</a>
+            {% endif %}
+          </div>
+        </nav>
+      </header>
+
+
+
+      <main role="main" class="container">
+        <div class="row" id="messages">
+          {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">
+                {{message}}
+            </div>
+            {% endfor %}
+          {% endif %}
+
+        </div>
+        
+        <div>
+          <div>
+            {% block content %}{% endblock %}
+          </div>
+        </div>
+      </main>
+
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  </body>
+</html>
