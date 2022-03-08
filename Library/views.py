@@ -1,10 +1,5 @@
 # from asyncio.windows_events import NULL
 import json
-from msilib.schema import Error
-import re
-from django.contrib import messages
-from telnetlib import STATUS
-from urllib import response
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import Book,MyBook
