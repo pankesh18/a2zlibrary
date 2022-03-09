@@ -12,7 +12,7 @@ class Book(models.Model):
     Description = models.TextField()
     Tags  = models.CharField(max_length=1000)
     ISBN = models.CharField(max_length=1000)
-    Image = models.ImageField(default='../media/book_images/default-movie.jpg',blank=True, upload_to='book_images')
+    Image = models.ImageField(default='../media/book_images/default.jpg',blank=True, upload_to='book_images')
     IssuedBy = models.ForeignKey(User, blank=True, null=True, on_delete=models.SET_NULL)
 
 
