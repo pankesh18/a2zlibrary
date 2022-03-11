@@ -71,22 +71,40 @@
                                                                     </div>`
                 
                 var htmldata =""
+
                 for(var i=0; i<data.length; i++){
+
+                    var volumeInfo=data[i].volumeInfo
+
                     var book={
-                       "BookTitle": data[i].volumeInfo.title!==undefined? data[i].volumeInfo.title : 'N/A',
-                       "Author" :    data[i].volumeInfo.authors[0]!==undefined? data[i].volumeInfo.authors[0] : 'N/A',
-                       "ImageURL": data[i].volumeInfo.imageLinks.thumbnail!==undefined? data[i].volumeInfo.imageLinks.thumbnail : null,
-                        "Year":    data[i].volumeInfo.publishedDate!==undefined? (new Date(data[i].volumeInfo.publishedDate)).getFullYear() : 'N/A',
-                        "Language" : data[i].volumeInfo.language!== undefined ? languageNames.of(data[i].volumeInfo.language): 'N/A',
-                        "Description": data[i].volumeInfo.description!== undefined ? data[i].volumeInfo.description: 'N/A',
-                        "Publisher": data[i].volumeInfo.publisher!== undefined ? data[i].volumeInfo.publisher: 'N/A',
-                        "ISBN": data[i].volumeInfo.industryIdentifiers!== undefined ? data[i].volumeInfo.industryIdentifiers.pop().identifier: 'N/A',    
+                       "BookTitle": volumeInfo.hasOwnProperty("title")? volumeInfo.title : 'N/A',
+                       "Author" :    volumeInfo.hasOwnProperty("authors")? volumeInfo.authors[0] : 'N/A',
+                       "ImageURL": volumeInfo.hasOwnProperty("imageLinks")? volumeInfo.imageLinks.thumbnail : '/media/book_images/default.jpg',
+                        "Year":    volumeInfo.hasOwnProperty("publishedDate")? (new Date(volumeInfo.publishedDate)).getFullYear() : 'N/A',
+                        "Language" : volumeInfo.hasOwnProperty("language") ? languageNames.of(volumeInfo.language): 'N/A',
+                        "Description": volumeInfo.hasOwnProperty("description") ? volumeInfo.description: 'N/A',
+                        "Publisher": volumeInfo.hasOwnProperty("publisher") ? volumeInfo.publisher: 'N/A',
+                        "ISBN": volumeInfo.hasOwnProperty("industryIdentifiers") ? volumeInfo.industryIdentifiers.pop().identifier: 'N/A',    
 
                     }
+
+                    // var book={
+                    //    "BookTitle": data[i].volumeInfo.title!==undefined? data[i].volumeInfo.title : 'N/A',
+                    //    "Author" :    data[i].volumeInfo.authors[0]!==undefined? data[i].volumeInfo.authors[0] : 'N/A',
+                    //    "ImageURL": data[i].volumeInfo.imageLinks.thumbnail!==undefined? data[i].volumeInfo.imageLinks.thumbnail : null,
+                    //     "Year":    data[i].volumeInfo.publishedDate!==undefined? (new Date(data[i].volumeInfo.publishedDate)).getFullYear() : 'N/A',
+                    //     "Language" : data[i].volumeInfo.language!== undefined ? languageNames.of(data[i].volumeInfo.language): 'N/A',
+                    //     "Description": data[i].volumeInfo.description!== undefined ? data[i].volumeInfo.description: 'N/A',
+                    //     "Publisher": data[i].volumeInfo.publisher!== undefined ? data[i].volumeInfo.publisher: 'N/A',
+                    //     "ISBN": data[i].volumeInfo.industryIdentifiers!== undefined ? data[i].volumeInfo.industryIdentifiers.pop().identifier: 'N/A',    
+
+                    // }
+
+
                     console.log(book)
                     books.push(book)
 
-                    htmldata+=`<div class="row" style="background-color: #a9a9a91f;  padding: 10px; border-radius:10%; margin: 5px;"">
+                    htmldata=`<div class="row" style="background-color: #a9a9a91f;  padding: 10px; border-radius:10%; margin: 5px;"">
                                 <div class="col-lg-4 my-2" >
                                     <div class="col" style="text-align: center;">  <img src='${book["ImageURL"]}' width="200" height="300" >    </div>
                                     <div class="col my-5" style="text-align: center; ">
@@ -116,9 +134,9 @@
                                 </div>
                             </div>`
 
-
+                        document.getElementById('result_container').innerHTML+=htmldata
                 }
-                document.getElementById('result_container').innerHTML=htmldata
+                
 
 
             
