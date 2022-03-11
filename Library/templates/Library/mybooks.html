@@ -11,11 +11,18 @@
 <div style="margin-left: 15%; margin-right: 15%;">
 
 <div class="container py-2 my-5" style="border-style: inset; border-radius: 0%; border-top: 0; border-bottom: 0; float: left;">
+  {% for mbk in mybooks %} 
   <div  class="row" >
-  {% for mbk in mybooks %}  
+  
     <div class="col" style="padding: 10px;  margin: 5px; border-style: groove;  border-left: 0; border-right: 0; border-top: 0;">
         <div class="row" style="background-color: #a9a9a91f;">
-            <div class="col-md-3 my-2" style="text-align: center;"><img src="{{ mbk.book.Image.url }}" width="100" height="150" ></div>
+            <div class="col-md-3 my-2" style="text-align: center;">
+              {% if not mbk.book.IsRequested %}
+              <img src="{{ mbk.book.Image.url }}" width="100" height="150" >
+              {% else %}
+              <img src="{{ mbk.book.ImageURL }}" width="100" height="150" >
+              {% endif%}
+            </div>
             <div class="col-md-7 my-2 py-4" style="text-align: left;">
                 <div >
                     <h3>  {{ mbk.book.BookTitle  }}    </h3>
@@ -36,8 +43,9 @@
 
     </div>
 
-    {% endfor %}
+ 
   </div>
+  {% endfor %}
 </div>
 
 </div>

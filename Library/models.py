@@ -1,3 +1,5 @@
+from pickle import NONE
+from statistics import mode
 from django.db import models
 from django.contrib.auth.models import User 
 import datetime
@@ -13,6 +15,8 @@ class Book(models.Model):
     Tags  = models.CharField(max_length=1000)
     ISBN = models.CharField(max_length=1000)
     Image = models.ImageField(default='../media/book_images/default.jpg',blank=True, upload_to='book_images')
+    IsRequested= models.BooleanField(default=False)
+    ImageURL=models.TextField(default=NONE)
     IssuedBy = models.ForeignKey(User, blank=True, null=True, on_delete=models.SET_NULL)
 
 

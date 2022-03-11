@@ -40,7 +40,7 @@ def booklist(request):
 def IssueBook(request):
     try:
 
-        if  MyBook.objects.filter(user=request.user).count()>=1:
+        if  MyBook.objects.filter(user=request.user).count()>=3:
             
             response = HttpResponse(json.dumps({'msg': f'You cant issue more books. Please return previous books'}), 
             content_type='application/json')

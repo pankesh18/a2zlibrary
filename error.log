@@ -1,3 +1,33 @@
 error page
 NoneType: None
 error page
+module 'urllib3' has no attribute 'urlretrieve'
+module 'urllib3' has no attribute 'urlretrieve'
+module 'urllib3' has no attribute 'urlretrieve'
+module 'urllib3' has no attribute 'urlretrieve'
+module 'urllib3' has no attribute 'urlretrieve'
+[Errno 22] Invalid argument: 'http://books.google.com/books/content?id=SflWEAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api'
+module 'urllib3.request' has no attribute 'urlretrieve'
+Could not parse the remainder: '==false' from 'book.IsRequested==false'
+Could not parse the remainder: '==false' from 'book.IsRequested==false'
+Could not parse the remainder: '==false' from 'book.IsRequested==false'
+Could not parse the remainder: '==false' from 'book.IsRequested==false'
+Could not parse the remainder: '==false' from 'book.IsRequested==false'
+Could not parse the remainder: '==false' from 'book.IsRequested==false'
+Could not parse the remainder: '==false' from 'book.IsRequested==false'
+Could not parse the remainder: '==false' from 'book.IsRequested==false'
+Could not parse the remainder: '==false' from 'book.IsRequested==false'
+Could not parse the remainder: '==FALSE' from 'book.IsRequested==FALSE'
+Could not parse the remainder: '==FALSE' from 'book.IsRequested==FALSE'
+Could not parse the remainder: '=false' from 'book.IsRequested=false'
+Could not parse the remainder: '=' from '='
+Unused 'book.ImageURL' at end of if expression.
+Unused 'book.ImageURL' at end of if expression.
+["“b'I01\\n'” value must be either True or False."]
+["“b'I01\\n'” value must be either True or False."]
+["“b'I01\\n'” value must be either True or False."]
+["“b'I01\\n'” value must be either True or False."]
+["“b'I01\\n'” value must be either True or False."]
+["“b'I01\\n'” value must be either True or False."]
+["“b'I01\\n'” value must be either True or False."]
+["“b'I01\\n'” value must be either True or False."]

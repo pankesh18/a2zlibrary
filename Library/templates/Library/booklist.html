@@ -41,7 +41,14 @@
         {% if not book.IssuedBy %}
 
             <div class="col" style="background-color: #a9a9a91f; min-width: 30%;  padding: 10px; border-radius:10%; margin: 5px; max-height:fit-content;" data-bs-toggle="modal" data-bs-target="#bk_{{ forloop.counter }}">
-                <div class="col-sm my-2" style="text-align: center;"><img src="{{ book.Image.url }}" width="200" height="300" ></div>
+                <div class="col-sm my-2" style="text-align: center;">
+                
+                  {% if  book.Image %}
+                  <img src="{{ book.Image.url }}" width="200" height="300" > 
+                  {% else %}
+                  <img src="{{ book.ImageURL }}" width="200" height="300" >
+                  {% endif %}
+                </div>
                 <div class="col-sm my-2" style="text-align: center;">
                     <div style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">
                         <h4>  {{ book.BookTitle  }}    </h4>
@@ -59,7 +66,12 @@
             Book Issued!
           </div>
           <div  style="opacity: 0.3;">
-            <div class="col-sm my-2" style="text-align: center;"><img src="{{ book.Image.url }}" width="200" height="300" ></div>
+            <div class="col-sm my-2" style="text-align: center;"> 
+              {% if not book.IsRequested %}
+              <img src="{{ book.Image.url }}" width="200" height="300" >
+              {% else %}
+              <img src="{{ book.ImageURL }}" width="200" height="300" >a
+              {% endif %}</div>
             <div class="col-sm my-2" style="text-align: center;">
                 <div style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">
                     <h4>  {{ book.BookTitle  }}    </h4>

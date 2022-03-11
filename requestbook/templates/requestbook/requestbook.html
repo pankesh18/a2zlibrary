@@ -20,11 +20,34 @@
     </div>
 
 </div>
+<button id="btn-ReturnSuccessModal" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ReturnSuccessModal" style="display: none;" >
+    IssueSuccessModal
+  </button>
+  <div class="modal fade" id="ReturnSuccessModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="ReturnSuccessModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="ReturnSuccessModalLabel">Book returned successfully</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Your request has been accepted and this book will be delivered in 2 business weeks.
+        </div>
+        <div class="modal-footer">
+          <a type="button" class="btn btn-secondary" href="{% url 'home' %}" >OK</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="book_modal">
 
+</div>
 
       <script>
         books=[];
         function reqbook(index){
+
+
             var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
 
             function csrfSafeMethod(method) {
@@ -44,8 +67,33 @@
                     data: {'book': books[index]},
                     success: function(response) {
                         
-                        alert('success')
-                    }
+                        $('#btn-ReturnSuccessModal').click()
+                    },
+              error: function(XMLHttpRequest, textStatus, errorThrown) {
+                err =JSON.parse(XMLHttpRequest.responseText)
+
+
+                var md=`<div class="modal fade" id="ResponseModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="ResponseModallLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="ResponseModalLabel">Error</h5>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                             ${err['msg']}
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>`
+                    
+                  document.getElementById('book_modal').innerHTML =md
+     
+                  $('#ResponseModal').modal('show') 
+              }
             })
             }
 
