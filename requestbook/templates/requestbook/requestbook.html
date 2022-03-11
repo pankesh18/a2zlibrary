@@ -7,7 +7,7 @@
     
     </div>
 
-
+    <div style="margin-left: 10%; margin-right: 10%;">
     <div class="input-group rounded">
         <input type="search" id="bk_searchinput" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
         <span class="input-group-text border-0" id="search-addon">
@@ -15,10 +15,11 @@
         </span>
       </div>
 
-    <div id="result_section">
+    <div class="px-5" id="result_section">
 
     </div>
 
+</div>
 
 
       <script>
@@ -105,7 +106,7 @@
                     books.push(book)
 
                     htmldata=`<div class="row" style="background-color: #a9a9a91f;  padding: 10px; border-radius:10%; margin: 5px;"">
-                                <div class="col-lg-4 my-2" >
+                                <div class="col-md-4 my-2" >
                                     <div class="col" style="text-align: center;">  <img src='${book["ImageURL"]}' width="200" height="300" >    </div>
                                     <div class="col my-5" style="text-align: center; ">
                                         {% csrf_token %}
@@ -114,7 +115,7 @@
                                     </button>
                                     </div>
                                 </div>
-                                <div class="col-lg-8 my-2" >
+                                <div class="col-md-8 my-2" >
                                     <div >
                                         <h3>  ${book["BookTitle"]}    </h3>
                                         <div class="display-5 muted">    ${book["Author"]}   </div>

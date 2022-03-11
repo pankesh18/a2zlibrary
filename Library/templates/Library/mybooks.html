@@ -8,26 +8,26 @@
 
 {% if mybooks %}
 
-
+<div style="margin-left: 15%; margin-right: 15%;">
 
 <div class="container py-2 my-5" style="border-style: inset; border-radius: 0%; border-top: 0; border-bottom: 0; float: left;">
-
+  <div  class="row" >
   {% for mbk in mybooks %}  
     <div class="col" style="padding: 10px;  margin: 5px; border-style: groove;  border-left: 0; border-right: 0; border-top: 0;">
         <div class="row" style="background-color: #a9a9a91f;">
-            <div class="col-3 my-2" style="text-align: center;"><img src="{{ mbk.book.Image.url }}" width="100" height="150" ></div>
-            <div class="col-7 my-2 py-4" style="text-align: left;">
+            <div class="col-md-3 my-2" style="text-align: center;"><img src="{{ mbk.book.Image.url }}" width="100" height="150" ></div>
+            <div class="col-md-7 my-2 py-4" style="text-align: left;">
                 <div >
                     <h3>  {{ mbk.book.BookTitle  }}    </h3>
-                    <div class="display-5 muted">    {{ mbk.book.Author }}    </div>
-                    <div class="display-5 muted">    {{ mbk.IssuedDate }}    </div>
+                    <div class="muted">    {{ mbk.book.Author }}    </div>
+                    <div class="muted">  Issued : {{ mbk.IssuedDate }}    </div>
                 </div>
 
             </div>
-            <div class="col-2">
+            <div class="col-md-2 p-5">
                 <form action="" method="POST">
                     {% csrf_token %}
-                <button type="button" class="btn btn-sm btn-secondary" style="position: absolute; top:45%" onclick="returnBook('{{mbk.book.id}}')">
+                <button type="button" class="btn btn-sm btn-secondary"  onclick="returnBook('{{mbk.book.id}}')">
                     Return Book
                   </button>
                 </form>
@@ -37,9 +37,10 @@
     </div>
 
     {% endfor %}
+  </div>
 </div>
 
-
+</div>
 
 
 
